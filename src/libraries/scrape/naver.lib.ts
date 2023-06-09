@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { NaverError } from 'errors/naver.error';
@@ -15,8 +16,8 @@ export const naverNews = async () => {
     const url = `https://openapi.naver.com/v1/search/news.json?&query=${queryName}`;
 
     const headers = {
-      'X-Naver-Client-Id': process.env.NAVER_CLIENT,
-      'X-Naver-Client-Secret': process.env.NAVER_TOKEN,
+      'X-Naver-Client-Id': process.env.NAVER_CLIENT!,
+      'X-Naver-Client-Secret': process.env.NAVER_TOKEN!,
     };
 
     const options = {

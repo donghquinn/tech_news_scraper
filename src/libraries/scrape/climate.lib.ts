@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ClimateError } from 'errors/climate.error';
 import fetch from 'node-fetch';
 import { ClimateReturnData, Response } from 'types/climate.type';
