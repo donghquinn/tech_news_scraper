@@ -2,7 +2,7 @@
   "name": "tech_news_scraper",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "ISC",
   "packageManager": "yarn@3.6.0",
   "type": "module",
   "scripts": {
