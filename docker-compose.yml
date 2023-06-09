@@ -1,0 +1,41 @@
+---
+version: '3.7'
+services:
+          scraper:
+                build:
+                        context: ./scraper
+                        dockerfile: ./Dockerfile
+                container_name: scraper
+                restart: unless-stopped
+                deploy:
+                        resources:
+                              limits:
+                                  cpus: '0.25'
+                                  memory: 700M
+                              reservations:
+                                  cpus: '0.15'
+                                  memory: 300M
+                volumes:
+                        - ./scraper/logs:/home/node/logs
+                expose:
+                        - 5500
+                env_file:
+                        - .env
+                networks:
+                        - proxy
+                        
+          db:
+                image: postgres:15-alpine3.17
+                ports:
+                        - 6432:5432
+                restart: always
+                container_name: news_db
+                environment:
+                        - TZ=Asia/Seoul
+                env_file:
+                        - .postgres.env
+                volumes:
+                        - ./newsData:/var/lib/postgresql/data
+networks:
+        proxy:
+                external: true

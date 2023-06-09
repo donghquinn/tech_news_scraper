@@ -15,8 +15,8 @@ export const naverNews = async () => {
     const url = `https://openapi.naver.com/v1/search/news.json?&query=${queryName}`;
 
     const headers = {
-      'X-Naver-Client-Id': process.env.NAVER_CLIENT!,
-      'X-Naver-Client-Secret': process.env.NAVER_TOKEN!,
+      'X-Naver-Client-Id': process.env.NAVER_CLIENT,
+      'X-Naver-Client-Secret': process.env.NAVER_TOKEN,
     };
 
     const options = {
