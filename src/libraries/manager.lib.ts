@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ManagerError } from 'errors/manager.error';
 import schedule, { RecurrenceRule } from 'node-schedule';
 import { BbcNewsReturnArray } from 'types/bbc.type';
@@ -48,6 +49,7 @@ export class ScrapeObserver {
     this.climate = [];
     this.naver = [];
     this.melon = [];
+    this.naverKin = { contentArray: [], titleArray: [], hrefArray: [], categoryArray: [] };
   }
 
   public static getInstance() {
@@ -108,7 +110,7 @@ export class ScrapeObserver {
           Logger.error('Naver News Scraping Error: %o', { reason: result[5].reason });
         }
 
-        await this.receivedDataInsert(this.bbc, this.naver, this.hacker, this.melon, this.climate);
+        await this.receivedDataInsert(this.bbc, this.naver, this.hacker, this.melon, this.climate, this.naverKin);
       } catch (error) {
         Logger.error('Error: %o', { error });
 
