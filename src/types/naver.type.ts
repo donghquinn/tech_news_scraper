@@ -48,3 +48,10 @@ export interface NaverNewsResultReturn {
   url: string;
   postedTime: string;
 }
+
+export interface NaverKinReturn {
+  contentArray: Array<string>;
+  hrefArray: Array<string>;
+  categoryArray: Array<string>;
+  titleArray: Array<string>;
+}

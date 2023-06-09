@@ -4,13 +4,14 @@ import { BbcNewsReturnArray } from 'types/bbc.type';
 import { ClimateReturnData } from 'types/climate.type';
 import { HackersNewsArrayType } from 'types/hackers.type';
 import { MusicRank } from 'types/music.type';
-import { NaverNewsItems } from 'types/naver.type';
+import { NaverKinReturn, NaverNewsItems } from 'types/naver.type';
 import { Logger } from 'utils/logger.util';
 import { InsertData } from './common/insert.lib';
 import { scrapeBbcTechNews } from './scrape/bbc.lib';
 import { getKoreanClimate } from './scrape/climate.lib';
 import { scrapeHackerNews } from './scrape/hackers.lib';
 import { scrapeMelonChart } from './scrape/music.lib';
+import { scrapeNaverKin } from './scrape/naver.kin';
 import { naverNews } from './scrape/naver.lib';
 
 export class ScrapeObserver {
@@ -29,6 +30,8 @@ export class ScrapeObserver {
   private melon: Array<MusicRank>;
 
   private naver: Array<NaverNewsItems>;
+
+  private naverKin: NaverKinReturn;
 
   constructor() {
     this.rule = new schedule.RecurrenceRule();
@@ -66,6 +69,7 @@ export class ScrapeObserver {
           scrapeMelonChart(),
           getKoreanClimate(),
           naverNews(),
+          scrapeNaverKin(),
         ]);
 
         if (result[0].status === 'fulfilled') {
@@ -98,6 +102,12 @@ export class ScrapeObserver {
           Logger.error('Naver News Scraping Error: %o', { reason: result[4].reason });
         }
 
+        if (result[5].status === 'fulfilled') {
+          this.naverKin = result[5].value;
+        } else {
+          Logger.error('Naver News Scraping Error: %o', { reason: result[5].reason });
+        }
+
         await this.receivedDataInsert(this.bbc, this.naver, this.hacker, this.melon, this.climate);
       } catch (error) {
         Logger.error('Error: %o', { error });
@@ -117,6 +127,7 @@ export class ScrapeObserver {
     hacker: Array<HackersNewsArrayType>,
     melon: Array<MusicRank>,
     climate: Array<ClimateReturnData>,
+    naverKin: NaverKinReturn,
   ) {
     try {
       const result = await Promise.allSettled([
@@ -125,11 +136,9 @@ export class ScrapeObserver {
         this.insert.insertHackerNewsData(hacker),
         this.insert.insertMelonData(melon),
         this.insert.insertNaverNews(naver),
+        this.insert.insertNaverKin(naverKin),
       ]);
 
-      if (result[1]) {
-        console.log('a');
-      }
       if (result[0].status === 'rejected') {
         Logger.error('Insert BBC Data Error: %o', { reason: result[0].reason });
         this.bbc = [];
@@ -160,6 +169,13 @@ export class ScrapeObserver {
 
       if (result[4].status === 'rejected') {
         Logger.error('Insert Naver News Data Error: %o', { reason: result[4].reason });
+        this.naver = [];
+      } else {
+        this.naver = [];
+      }
+
+      if (result[5].status === 'rejected') {
+        Logger.error('Insert Naver News Data Error: %o', { reason: result[5].reason });
         this.naver = [];
       } else {
         this.naver = [];
