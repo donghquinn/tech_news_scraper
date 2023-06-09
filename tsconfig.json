@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types",
+    ],
+    "lib": ["ESNext"],
+    "allowJs": false,
+    "strict": true, 
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "baseUrl": "src",
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "files": true
+  },
+}
