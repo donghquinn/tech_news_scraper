@@ -220,6 +220,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/moment-timezone@npm:^0.5.30":
+  version: 0.5.30
+  resolution: "@types/moment-timezone@npm:0.5.30"
+  dependencies:
+    moment-timezone: "*"
+  checksum: 488b5880b346101f15e3f90267eb8d848ce20a41ea8b51305b1fee25f4fac57b93d553dc0de6f2eb8412be764bd74c9c347ed678c9a6d20d800a06c106b674f9
+  languageName: node
+  linkType: hard
+
+"@types/node-schedule@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@types/node-schedule@npm:2.1.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: db782544dbdfaddc78488b463cdc474f76c55ebb1ffcec9fc9d3d67e02e23e0ff1d36e6bdca562097db650e6d8a1fac17c3dd03dc5564e5dbb54e5368019e55b
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:*":
+  version: 20.2.5
+  resolution: "@types/node@npm:20.2.5"
+  checksum: 38ce7c7e9d76880dc632f71d71e0d5914fcda9d5e9a7095d6c339abda55ca4affb0f2a882aeb29398f8e09d2c5151f0b6586c81c8ccdfe529c34b1ea3337425e
+  languageName: node
+  linkType: hard
+
 "@types/semver@npm:^7.3.12":
   version: 7.5.0
   resolution: "@types/semver@npm:7.5.0"
@@ -483,10 +508,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"asynckit@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "asynckit@npm:0.4.0"
+  checksum: 7b78c451df768adba04e2d02e63e2d0bf3b07adcd6e42b4cf665cb7ce899bedd344c69a1dcbce355b5f972d597b25aaa1c1742b52cffd9caccb22f348114f6be
+  languageName: node
+  linkType: hard
+
 "available-typed-arrays@npm:^1.0.5":
   version: 1.0.5
   resolution: "available-typed-arrays@npm:1.0.5"
   checksum: 20eb47b3cefd7db027b9bbb993c658abd36d4edd3fe1060e83699a03ee275b0c9b216cc076ff3f2db29073225fb70e7613987af14269ac1fe2a19803ccc97f1a
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "axios@npm:1.4.0"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 7fb6a4313bae7f45e89d62c70a800913c303df653f19eafec88e56cea2e3821066b8409bc68be1930ecca80e861c52aa787659df0ffec6ad4d451c7816b9386b
   languageName: node
   linkType: hard
 
@@ -641,6 +684,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"combined-stream@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "combined-stream@npm:1.0.8"
+  dependencies:
+    delayed-stream: ~1.0.0
+  checksum: 49fa4aeb4916567e33ea81d088f6584749fc90c7abec76fd516bf1c5aa5c79f3584b5ba3de6b86d26ddd64bae5329c4c7479343250cfe71c75bb366eae53bb7c
+  languageName: node
+  linkType: hard
+
 "concat-map@npm:0.0.1":
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
@@ -659,6 +711,15 @@ __metadata:
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
   checksum: a9a1503d4390d8b59ad86f4607de7870b39cad43d929813599a23714831e81c520bddf61bcdd1f8e30f05fd3a2b71ae8538e946eb2786dc65c2bbc520f692eff
+  languageName: node
+  linkType: hard
+
+"cron-parser@npm:^4.2.0":
+  version: 4.8.1
+  resolution: "cron-parser@npm:4.8.1"
+  dependencies:
+    luxon: ^3.2.1
+  checksum: e3e7b227cb45c8e3e16b5ceab9fd1b4769b878b430f009d5de26c3e20d4e0112fde6f90a663afbcd9cc2be92d73b6eefe2d939d1646f3a96704f73c63dd39b6f
   languageName: node
   linkType: hard
 
@@ -728,6 +789,13 @@ __metadata:
     has-property-descriptors: ^1.0.0
     object-keys: ^1.1.1
   checksum: e60aee6a19b102df4e2b1f301816804e81ab48bb91f00d0d935f269bf4b3f79c88b39e4f89eaa132890d23267335fd1140dfcd8d5ccd61031a0a2c41a54e33a6
+  languageName: node
+  linkType: hard
+
+"delayed-stream@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "delayed-stream@npm:1.0.0"
+  checksum: 46fe6e83e2cb1d85ba50bd52803c68be9bd953282fa7096f51fc29edd5d67ff84ff753c51966061e5ba7cb5e47ef6d36a91924eddb7f3f3483b1c560f77a0020
   languageName: node
   linkType: hard
 
@@ -1229,12 +1297,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.0":
+  version: 1.15.2
+  resolution: "follow-redirects@npm:1.15.2"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: faa66059b66358ba65c234c2f2a37fcec029dc22775f35d9ad6abac56003268baf41e55f9ee645957b32c7d9f62baf1f0b906e68267276f54ec4b4c597c2b190
+  languageName: node
+  linkType: hard
+
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
   dependencies:
     is-callable: ^1.1.3
   checksum: 6c48ff2bc63362319c65e2edca4a8e1e3483a2fabc72fbe7feaf8c73db94fc7861bd53bc02c8a66a0c1dd709da6b04eec42e0abdd6b40ce47305ae92a25e5d28
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "form-data@npm:4.0.0"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: 01135bf8675f9d5c61ff18e2e2932f719ca4de964e3be90ef4c36aacfc7b9cb2fceb5eca0b7e0190e3383fe51c5b37f4cb80b62ca06a99aaabfcfd6ac7c9328c
   languageName: node
   linkType: hard
 
@@ -1772,12 +1861,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"long-timeout@npm:0.1.1":
+  version: 0.1.1
+  resolution: "long-timeout@npm:0.1.1"
+  checksum: 48668e5362cb74c4b77a6b833d59f149b9bb9e99c5a5097609807e2597cd0920613b2a42b89bd0870848298be3691064d95599a04ae010023d07dba39932afa7
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^6.0.0":
   version: 6.0.0
   resolution: "lru-cache@npm:6.0.0"
   dependencies:
     yallist: ^4.0.0
   checksum: f97f499f898f23e4585742138a22f22526254fdba6d75d41a1c2526b3b6cc5747ef59c5612ba7375f42aca4f8461950e925ba08c991ead0651b4918b7c978297
+  languageName: node
+  linkType: hard
+
+"luxon@npm:^3.2.1":
+  version: 3.3.0
+  resolution: "luxon@npm:3.3.0"
+  checksum: 50cf17a0dc155c3dcacbeae8c0b7e80db425e0ba97b9cbdf12a7fc142d841ff1ab1560919f033af46240ed44e2f70c49f76e3422524c7fc8bb8d81ca47c66187
   languageName: node
   linkType: hard
 
@@ -1805,6 +1908,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mime-db@npm:1.52.0":
+  version: 1.52.0
+  resolution: "mime-db@npm:1.52.0"
+  checksum: 0d99a03585f8b39d68182803b12ac601d9c01abfa28ec56204fa330bc9f3d1c5e14beb049bafadb3dbdf646dfb94b87e24d4ec7b31b7279ef906a8ea9b6a513f
+  languageName: node
+  linkType: hard
+
+"mime-types@npm:^2.1.12":
+  version: 2.1.35
+  resolution: "mime-types@npm:2.1.35"
+  dependencies:
+    mime-db: 1.52.0
+  checksum: 89a5b7f1def9f3af5dad6496c5ed50191ae4331cc5389d7c521c8ad28d5fdad2d06fd81baf38fed813dc4e46bb55c8145bb0ff406330818c9cf712fb2e9b3836
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^3.0.5, minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -1821,7 +1940,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.43":
+"moment-timezone@npm:*, moment-timezone@npm:^0.5.43":
   version: 0.5.43
   resolution: "moment-timezone@npm:0.5.43"
   dependencies:
@@ -1862,6 +1981,17 @@ __metadata:
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
   checksum: 23ad088b08f898fc9b53011d7bb78ec48e79de7627e01ab5518e806033861bef68d5b0cd0e2205c2f36690ac9571ff6bcb05eb777ced2eeda8d4ac5b44592c3d
+  languageName: node
+  linkType: hard
+
+"node-schedule@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "node-schedule@npm:2.1.1"
+  dependencies:
+    cron-parser: ^4.2.0
+    long-timeout: 0.1.1
+    sorted-array-functions: ^1.3.0
+  checksum: 6a8822b16fb024277c42efe710bdb35b6f1f6ab3a2f826283640511247d693f34ebd5ddf2863cd91609e7f323574e36c81cd2084dc204fa521f931380f0f963f
   languageName: node
   linkType: hard
 
@@ -2077,6 +2207,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.3.0
   resolution: "punycode@npm:2.3.0"
@@ -2277,6 +2414,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sorted-array-functions@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "sorted-array-functions@npm:1.3.0"
+  checksum: 673fd39ca3b6c92644d4483eac1700bb7d7555713a536822a7522a35af559bef3e72f10d89356b75042dc394cd7c2e2ab6f40024385218ec3c85bb7335032857
+  languageName: node
+  linkType: hard
+
 "stack-trace@npm:0.0.x":
   version: 0.0.10
   resolution: "stack-trace@npm:0.0.10"
@@ -2370,8 +2514,11 @@ __metadata:
   resolution: "tech_news_scraper@workspace:."
   dependencies:
     "@prisma/client": ^4.15.0
+    "@types/moment-timezone": ^0.5.30
+    "@types/node-schedule": ^2.1.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
+    axios: ^1.4.0
     cheerio: ^1.0.0-rc.12
     dotenv: ^16.1.4
     eslint: ^8.42.0
@@ -2380,6 +2527,7 @@ __metadata:
     eslint-config-prettier: ^8.8.0
     eslint-plugin-import: ^2.27.5
     moment-timezone: ^0.5.43
+    node-schedule: ^2.1.1
     prettier: ^2.8.8
     prisma: ^4.15.0
     reflect-metadata: ^0.1.13
