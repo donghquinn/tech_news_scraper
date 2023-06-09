@@ -1,4 +1,5 @@
 # Data Scraping
+    > (함께 하는 레포지토리)["https://github.com/donghquinn/tech_news_scrape_back"]
 
     ## BBC Tech News
         https://www.bbc.com/korean/topics/c2dwqjn99ggt
