@@ -41,6 +41,7 @@ export class ScrapeObserver {
 
     this.rule.tz = 'Asia/Seoul';
 
+    this.rule.dayOfWeek = [0, 1, 2, 3, 4, 5, 6];
     this.rule.minute = 59;
     this.rule.hour = 23;
 
