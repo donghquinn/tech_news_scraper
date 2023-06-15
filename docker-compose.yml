@@ -17,6 +17,7 @@ services:
                                   memory: 300M
                 volumes:
                         - ./scraper/logs:/home/node/logs
+                        - /etc/localtime:/etc/localtime
                 expose:
                         - 5500
                 env_file:
@@ -36,6 +37,7 @@ services:
                         - .postgres.env
                 volumes:
                         - ./newsData:/var/lib/postgresql/data
+                        - /etc/localtime:/etc/localtime
 networks:
         proxy:
                 external: true
