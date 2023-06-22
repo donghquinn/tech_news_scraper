@@ -40,11 +40,11 @@ export class ScrapeObserver {
       try {
         Logger.info('Scrape Start');
 
-        scrapeHackerNews(this.prisma);
-        scrapeBbcTechNews(this.prisma);
-        scrapeMelonChart(this.prisma);
-        getKoreanClimate(this.prisma);
-        naverNews(this.prisma);
+        await scrapeHackerNews(this.prisma);
+        await scrapeBbcTechNews(this.prisma);
+        await scrapeMelonChart(this.prisma);
+        await getKoreanClimate(this.prisma);
+        await naverNews(this.prisma);
       } catch (error) {
         Logger.error('Error: %o', { error });
 
