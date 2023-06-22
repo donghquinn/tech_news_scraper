@@ -2,10 +2,11 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { BbcError } from 'errors/bbc.error';
+import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import { BbcNewsReturnArray } from 'types/bbc.type';
 import { ScrapeLogger } from 'utils/logger.util';
 
-export const scrapeBbcTechNews = async () => {
+export const scrapeBbcTechNews = async (prisma: PrismaLibrary) => {
   try {
     const url = 'https://www.bbc.com/korean/topics/c2dwqjn99ggt';
 
@@ -38,6 +39,15 @@ export const scrapeBbcTechNews = async () => {
 
     ScrapeLogger.info('BBC Technology News Found');
 
+    for (let i = 0; i < returnArray.length; i += 1) {
+      await prisma.bbcTechNews.create({
+        data: {
+          rank: returnArray[i].rank,
+          post: returnArray[i].post,
+          link: returnArray[i].link,
+        },
+      });
+    }
     return returnArray;
   } catch (error) {
     ScrapeLogger.error('Scrape BBC Tech News Error: ', {

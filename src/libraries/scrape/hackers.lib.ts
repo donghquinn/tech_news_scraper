@@ -2,6 +2,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { HackerError } from 'errors/hacker.error';
+import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import { HackersNewsArrayType } from 'types/hackers.type';
 import { ScrapeLogger } from 'utils/logger.util';
 
@@ -9,7 +10,7 @@ import { ScrapeLogger } from 'utils/logger.util';
  * Hackers News 1 ~ 30: "https://news.ycombinator.com/"
  * @returns
  */
-export const scrapeHackerNews = async () => {
+export const scrapeHackerNews = async (prisma: PrismaLibrary) => {
   try {
     const hackerUrl = 'https://news.ycombinator.com/';
 
@@ -61,6 +62,16 @@ export const scrapeHackerNews = async () => {
     }
 
     ScrapeLogger.info('Got New Hacker News Rank.');
+
+    for (let i = 0; i < newsArray.length; i += 1) {
+      await prisma.hackers.create({
+        data: {
+          rank: newsArray[i].rank,
+          post: newsArray[i].post,
+          link: newsArray[i].link,
+        },
+      });
+    }
 
     return newsArray;
   } catch (error) {

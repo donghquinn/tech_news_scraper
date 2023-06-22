@@ -4,6 +4,7 @@ import * as cheerio from 'cheerio';
 import { subYears } from 'date-fns';
 import { MelonError } from 'errors/melon.error';
 import { NaverError } from 'errors/naver.error';
+import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import fetch from 'node-fetch';
 import { MusicNaverSearchResponse, MusicRank } from 'types/music.type';
 import { ScrapeLogger } from 'utils/logger.util';
@@ -14,7 +15,7 @@ import { ScrapeLogger } from 'utils/logger.util';
  * %EB%A0%B9%EB%B3%84+%EC%9D%8C%EC%9B%90%EC%B0%A8
  * %ED%8A%B8&o=1&sugo=11&q=%EC%97%B0%EB%A0%B9%EB%B3%84+%EC%9D%8C%EC%9B%90%EC%B0%A8%ED%8A%B8
  */
-export const scrapeMelonChart = async () => {
+export const scrapeMelonChart = async (prisma: PrismaLibrary) => {
   try {
     const musicArray: Array<MusicRank> = [];
 
@@ -47,6 +48,15 @@ export const scrapeMelonChart = async () => {
 
     ScrapeLogger.info('Found Melon Music Chart Result');
 
+    for (let i = 0; i < musicArray.length; i += 1) {
+      await prisma.melon.create({
+        data: {
+          rank: musicArray[i].rank,
+          title: musicArray[i].title,
+          artist: musicArray[i].artist,
+        },
+      });
+    }
     return musicArray;
   } catch (error) {
     ScrapeLogger.error('Scrape Melon Chart Error: %o', {

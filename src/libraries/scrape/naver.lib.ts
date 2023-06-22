@@ -2,12 +2,13 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { NaverError } from 'errors/naver.error';
+import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import fetch from 'node-fetch';
 import { NaverNewsResponse } from 'types/naver.type';
 import utf8 from 'utf8';
 import { ScrapeLogger } from 'utils/logger.util';
 
-export const naverNews = async () => {
+export const naverNews = async (prisma: PrismaLibrary) => {
   try {
     // const newsArray: Array<NaverNewsResultReturn> = [];
 
@@ -29,6 +30,18 @@ export const naverNews = async () => {
 
     ScrapeLogger.info('Found Naver News');
 
+    for (let i = 0; i < naverNews.length; i += 1) {
+      await prisma.naverNews.create({
+        data: {
+          keyWord: 'IT',
+          title: response.items[i].title,
+          description: response.items[i].description.replace(/[\n\t\r]/g, ''),
+          originallink: response.items[i].originallink,
+          url: response.items[i].link,
+          postedTime: response.items[i].pubDate,
+        },
+      });
+    }
     return response.items;
   } catch (error) {
     ScrapeLogger.error('Scrape Naver News Error: %o', {

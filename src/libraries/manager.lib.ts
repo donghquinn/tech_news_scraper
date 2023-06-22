@@ -72,7 +72,6 @@ export class ScrapeObserver {
           scrapeMelonChart(),
           getKoreanClimate(),
           naverNews(),
-          scrapeNaverKin(),
         ]);
 
         if (result[0].status === 'fulfilled') {
