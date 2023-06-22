@@ -1,6 +1,6 @@
 #
 # --- base image ---
-FROM node:20.2-alpine3.17 as base
+FROM node:22.2-alpine3.17 as base
 
 # install curl/timezone
 RUN apk --no-cache add curl tzdata && \
