@@ -15,7 +15,7 @@ import { ScrapeLogger } from 'utils/logger.util';
  * %EB%A0%B9%EB%B3%84+%EC%9D%8C%EC%9B%90%EC%B0%A8
  * %ED%8A%B8&o=1&sugo=11&q=%EC%97%B0%EB%A0%B9%EB%B3%84+%EC%9D%8C%EC%9B%90%EC%B0%A8%ED%8A%B8
  */
-export const scrapeMelonChart = async (prisma: PrismaLibrary) => {
+export const scrapeMelonChart = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
     const musicArray: Array<MusicRank> = [];
 
@@ -54,6 +54,7 @@ export const scrapeMelonChart = async (prisma: PrismaLibrary) => {
           rank: musicArray[i].rank,
           title: musicArray[i].title,
           artist: musicArray[i].artist,
+          founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });
     }

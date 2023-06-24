@@ -8,7 +8,7 @@ import { NaverNewsResponse } from 'types/naver.type';
 import utf8 from 'utf8';
 import { ScrapeLogger } from 'utils/logger.util';
 
-export const naverNews = async (prisma: PrismaLibrary) => {
+export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
     // const newsArray: Array<NaverNewsResultReturn> = [];
 
@@ -39,6 +39,7 @@ export const naverNews = async (prisma: PrismaLibrary) => {
           originallink: response.items[i].originallink,
           url: response.items[i].link,
           postedTime: response.items[i].pubDate,
+          founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });
     }

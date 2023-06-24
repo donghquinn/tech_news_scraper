@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 import { ClimateReturnData, Response } from 'types/climate.type';
 import { ScrapeLogger } from 'utils/logger.util';
 
-export const getKoreanClimate = async (prisma: PrismaLibrary) => {
+export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
     let khaiStatus: string;
 
@@ -65,6 +65,7 @@ export const getKoreanClimate = async (prisma: PrismaLibrary) => {
           coGrade: climate[i].coGrade,
           khaiGrade: climate[i].khaiGrade,
           khaiStatus: climate[i].khaiStatus,
+          founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });
     }

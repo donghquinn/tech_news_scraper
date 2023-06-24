@@ -3,10 +3,11 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { BbcError } from 'errors/bbc.error';
 import { PrismaLibrary } from 'libraries/common/prisma.lib';
+import moment from 'moment-timezone';
 import { BbcNewsReturnArray } from 'types/bbc.type';
 import { ScrapeLogger } from 'utils/logger.util';
 
-export const scrapeBbcTechNews = async (prisma: PrismaLibrary) => {
+export const scrapeBbcTechNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
     const url = 'https://www.bbc.com/korean/topics/c2dwqjn99ggt';
 
@@ -45,6 +46,7 @@ export const scrapeBbcTechNews = async (prisma: PrismaLibrary) => {
           rank: returnArray[i].rank,
           post: returnArray[i].post,
           link: returnArray[i].link,
+          founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });
     }

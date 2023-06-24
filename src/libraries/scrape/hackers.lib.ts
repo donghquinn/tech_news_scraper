@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { HackerError } from 'errors/hacker.error';
 import { PrismaLibrary } from 'libraries/common/prisma.lib';
+import moment from 'moment-timezone';
 import { HackersNewsArrayType } from 'types/hackers.type';
 import { ScrapeLogger } from 'utils/logger.util';
 
@@ -10,7 +11,7 @@ import { ScrapeLogger } from 'utils/logger.util';
  * Hackers News 1 ~ 30: "https://news.ycombinator.com/"
  * @returns
  */
-export const scrapeHackerNews = async (prisma: PrismaLibrary) => {
+export const scrapeHackerNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
     const hackerUrl = 'https://news.ycombinator.com/';
 
@@ -69,6 +70,7 @@ export const scrapeHackerNews = async (prisma: PrismaLibrary) => {
           rank: newsArray[i].rank,
           post: newsArray[i].post,
           link: newsArray[i].link,
+          founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });
     }

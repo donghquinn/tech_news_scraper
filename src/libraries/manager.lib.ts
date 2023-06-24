@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import moment from 'moment-timezone';
 import schedule, { RecurrenceRule } from 'node-schedule';
 import { Logger } from 'utils/logger.util';
 import { PrismaLibrary } from './common/prisma.lib';
@@ -15,6 +16,8 @@ export class ScrapeObserver {
 
   private rule: RecurrenceRule;
 
+  private today: moment.Moment;
+
   constructor() {
     this.rule = new schedule.RecurrenceRule();
 
@@ -25,6 +28,7 @@ export class ScrapeObserver {
     this.rule.dayOfWeek = [0, 1, 2, 3, 4, 5, 6];
     this.rule.minute = 59;
     this.rule.hour = 23;
+    this.today = moment().tz('Asia/Seoul');
   }
 
   public static getInstance() {
@@ -40,11 +44,11 @@ export class ScrapeObserver {
       try {
         Logger.info('Scrape Start');
 
-        await scrapeHackerNews(this.prisma);
-        await scrapeBbcTechNews(this.prisma);
-        await scrapeMelonChart(this.prisma);
-        await getKoreanClimate(this.prisma);
-        await naverNews(this.prisma);
+        await scrapeHackerNews(this.prisma, this.today);
+        await scrapeBbcTechNews(this.prisma, this.today);
+        await scrapeMelonChart(this.prisma, this.today);
+        await getKoreanClimate(this.prisma, this.today);
+        await naverNews(this.prisma, this.today);
       } catch (error) {
         Logger.error('Error: %o', { error });
 
