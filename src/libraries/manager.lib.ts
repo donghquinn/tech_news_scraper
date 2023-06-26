@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import moment from 'moment-timezone';
-import schedule, { RecurrenceRule } from 'node-schedule';
+import cron from 'node-cron';
 import { Logger } from 'utils/logger.util';
 import { PrismaLibrary } from './common/prisma.lib';
 import { scrapeBbcTechNews } from './scrape/bbc.lib';
@@ -14,20 +14,11 @@ export class ScrapeObserver {
 
   private prisma: PrismaLibrary;
 
-  private rule: RecurrenceRule;
-
   private today: moment.Moment;
 
   constructor() {
-    this.rule = new schedule.RecurrenceRule();
-
     this.prisma = new PrismaLibrary();
 
-    this.rule.tz = 'Asia/Seoul';
-
-    this.rule.dayOfWeek = [0, 1, 2, 3, 4, 5, 6];
-    this.rule.minute = 59;
-    this.rule.hour = 23;
     this.today = moment().tz('Asia/Seoul');
   }
 
@@ -40,7 +31,7 @@ export class ScrapeObserver {
   }
 
   public start() {
-    schedule.scheduleJob(this.rule, async () => {
+    cron.schedule("* 59 11 * * *", async () => {
       try {
         Logger.info('Scrape Start');
 
@@ -49,6 +40,7 @@ export class ScrapeObserver {
         await scrapeMelonChart(this.prisma, this.today);
         await getKoreanClimate(this.prisma, this.today);
         await naverNews(this.prisma, this.today);
+        
       } catch (error) {
         Logger.error('Error: %o', { error });
 

@@ -21,8 +21,8 @@
     "dotenv": "^16.3.1",
     "json2csv": "^6.0.0-alpha.2",
     "moment-timezone": "^0.5.43",
+    "node-cron": "^3.0.2",
     "node-fetch": "^3.3.1",
-    "node-schedule": "^2.1.1",
     "prisma": "^4.15.0",
     "utf8": "^3.0.0",
     "winston": "^3.9.0",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/date-fns": "^2.6.0",
     "@types/moment-timezone": "^0.5.30",
-    "@types/node-schedule": "^2.1.0",
+    "@types/node-cron": "^3.0.8",
     "@types/utf8": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
