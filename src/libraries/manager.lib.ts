@@ -31,6 +31,14 @@ export class ScrapeObserver {
   }
 
   public start() {
+    const message = `Scraper Started: ${this.today.toString()}`;
+
+    const wrapper = '@'.repeat(message.length);
+
+    Logger.info(wrapper);
+    Logger.info(message);
+    Logger.info(wrapper);
+
     cron.schedule("* 59 11 * * *", async () => {
       try {
         Logger.info('Scrape Start');
