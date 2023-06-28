@@ -10,40 +10,43 @@ import { ScrapeLogger } from 'utils/logger.util';
 
 export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
-    // const newsArray: Array<NaverNewsResultReturn> = [];
+    const keyWordArray = ["AI", "인공지능", "IT", "스포츠"];
 
-    const queryName = utf8.encode('IT');
+    for (let j = 0; j <= keyWordArray.length; j +=1) {
+      const queryName = utf8.encode(keyWordArray[j]);
 
-    const url = `https://openapi.naver.com/v1/search/news.json?&query=${queryName}`;
+      const url = `https://openapi.naver.com/v1/search/news.json?&query=${queryName}`;
+  
+      const headers = {
+        'X-Naver-Client-Id': process.env.NAVER_CLIENT!,
+        'X-Naver-Client-Secret': process.env.NAVER_TOKEN!,
+      };
+  
+      const options = {
+        method: 'GET',
+        headers,
+      };
+  
+      const response = (await (await fetch(url, options)).json()) as NaverNewsResponse;
+  
+      ScrapeLogger.info('Found Naver News: %o', {response: response.items});
 
-    const headers = {
-      'X-Naver-Client-Id': process.env.NAVER_CLIENT!,
-      'X-Naver-Client-Secret': process.env.NAVER_TOKEN!,
-    };
-
-    const options = {
-      method: 'GET',
-      headers,
-    };
-
-    const response = (await (await fetch(url, options)).json()) as NaverNewsResponse;
-
-    ScrapeLogger.info('Found Naver News');
-
-    for (let i = 0; i < naverNews.length; i += 1) {
-      await prisma.naverNews.create({
-        data: {
-          keyWord: 'IT',
-          title: response.items[i].title,
-          description: response.items[i].description.replace(/[\n\t\r]/g, ''),
-          originallink: response.items[i].originallink,
-          url: response.items[i].link,
-          postedTime: response.items[i].pubDate,
-          founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
-        },
-      });
+      for (let i = 0; i <= response.items.length; i+=1) {
+        await prisma.naverNews.create({
+          data: {
+            keyWord: keyWordArray[j],
+            title: response.items[i].title,
+            description: response.items[i].description.replace(/<[^>]*>?/g, ''),
+            originallink: response.items[i].originallink,
+            url: response.items[i].link,
+            postedTime: response.items[i].pubDate,
+            founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
+          },
+        });
+      }
     }
-    return response.items;
+
+    return keyWordArray;
   } catch (error) {
     ScrapeLogger.error('Scrape Naver News Error: %o', {
       error: error instanceof Error ? error : new Error(JSON.stringify(error)),
