@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import moment from 'moment-timezone';
 import cron from 'node-cron';
 import { Logger } from 'utils/logger.util';
@@ -39,7 +38,7 @@ export class ScrapeObserver {
     Logger.info(message);
     Logger.info(wrapper);
 
-    cron.schedule("* 59 11 * * *", async () => {
+    cron.schedule("59 11 * * *", async () => {
       try {
         Logger.info('Scrape Start');
 
