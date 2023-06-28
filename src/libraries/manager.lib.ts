@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import moment from 'moment-timezone';
 import cron from 'node-cron';
 import { Logger } from 'utils/logger.util';
@@ -56,7 +57,5 @@ export class ScrapeObserver {
         });
       }
     });
-
-    // Logger.debug('Now, and Running Moment: %o', { now: now, runningMoment });
   }
 }
