@@ -31,12 +31,10 @@ export class ScrapeObserver {
   }
 
   public start() {
-
-
     cron.schedule("59 11 * * *", async () => {
       try {
         const message = `Scraper Started: ${this.today.toString()}`;
-
+        
         const wrapper = '@'.repeat(message.length);
     
         Logger.info(wrapper);

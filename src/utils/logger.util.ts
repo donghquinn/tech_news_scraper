@@ -8,7 +8,7 @@ const dirName = path.dirname(fileName);
 const dirSaveName = path.join(dirName, '..', '..', 'logs');
 
 // 로그 포맷 설정
-// const { combine, timestamp: defaultTimestamp, printf, splat, json } = Winston.format;
+const { combine, timestamp: defaultTimestamp, printf, splat, json } = Winston.format;
 
 // /* eslint-disable @typescript-eslint/restrict-template-expressions */
 // const printFormat = printf(({ level, message, timestamp }) => {
