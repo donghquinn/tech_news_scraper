@@ -42,34 +42,16 @@ export class ScrapeObserver {
         Logger.info(message);
         Logger.info(wrapper);
 
-        Promise.allSettled([scrapeHackerNews(this.prisma, this.today)]).then((result) => {
+        Promise.allSettled([
+          scrapeHackerNews(this.prisma, this.today),
+          scrapeBbcTechNews(this.prisma, this.today),
+          scrapeMelonChart(this.prisma, this.today),
+          getKoreanClimate(this.prisma, this.today),
+          naverNews(this.prisma, this.today)
+        ]).then((result) => {
           if(result[0].status === "rejected") {
-            Logger.error('Hacker News Failed: %o', { result: result[0].reason });
+            Logger.error('Failed Failed: %o', { result: result[0].reason });
         }});
-
-        Promise.allSettled([scrapeBbcTechNews(this.prisma, this.today)]).then((result) => {
-          if (result[0].status === "rejected") {
-            Logger.error('BBC News Failed: %o', { result: result[0].reason });
-          }
-        });
-
-        Promise.allSettled([scrapeMelonChart(this.prisma, this.today)]).then((result) => {
-          if (result[0].status === "rejected") {
-            Logger.error('Melon Chart Failed: %o', { result: result[0].reason });
-          }
-        });
-
-        Promise.allSettled([getKoreanClimate(this.prisma, this.today)]).then((result) => {
-          if (result[0].status === "rejected") {
-            Logger.error('Climate Failed: %o', { result: result[0].reason });
-          }
-        });
-
-        Promise.allSettled([naverNews(this.prisma, this.today)]).then((result) => {
-          if (result[0].status === "rejected") {
-            Logger.error('Naver News Failed: %o', { result: result[0].reason });
-          }
-        });
     });
   }
 }
