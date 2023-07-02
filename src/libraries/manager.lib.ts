@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import moment from 'moment-timezone';
 import cron from 'node-cron';
@@ -31,29 +32,44 @@ export class ScrapeObserver {
   }
 
   public start() {
-    cron.schedule("59 11 * * *", async () => {
-      try {
+    cron.schedule("59 11 * * *",  () => {
+      // try {
         const message = `Scraper Started: ${this.today.toString()}`;
-        
+
         const wrapper = '@'.repeat(message.length);
     
         Logger.info(wrapper);
         Logger.info(message);
         Logger.info(wrapper);
 
-        await scrapeHackerNews(this.prisma, this.today);
-        await scrapeBbcTechNews(this.prisma, this.today);
-        await scrapeMelonChart(this.prisma, this.today);
-        await getKoreanClimate(this.prisma, this.today);
-        await naverNews(this.prisma, this.today);
-        
-      } catch (error) {
-        Logger.error('Error: %o', { error });
+        Promise.allSettled([scrapeHackerNews(this.prisma, this.today)]).then((result) => {
+          if(result[0].status === "rejected") {
+            Logger.error('Hacker News Failed: %o', { result: result[0].reason });
+        }});
 
-        Logger.error('Observer Error: %o', {
-          error: error instanceof Error ? error : new Error(JSON.stringify(error)),
+        Promise.allSettled([scrapeBbcTechNews(this.prisma, this.today)]).then((result) => {
+          if (result[0].status === "rejected") {
+            Logger.error('BBC News Failed: %o', { result: result[0].reason });
+          }
         });
-      }
+
+        Promise.allSettled([scrapeMelonChart(this.prisma, this.today)]).then((result) => {
+          if (result[0].status === "rejected") {
+            Logger.error('Melon Chart Failed: %o', { result: result[0].reason });
+          }
+        });
+
+        Promise.allSettled([getKoreanClimate(this.prisma, this.today)]).then((result) => {
+          if (result[0].status === "rejected") {
+            Logger.error('Climate Failed: %o', { result: result[0].reason });
+          }
+        });
+
+        Promise.allSettled([naverNews(this.prisma, this.today)]).then((result) => {
+          if (result[0].status === "rejected") {
+            Logger.error('Naver News Failed: %o', { result: result[0].reason });
+          }
+        });
     });
   }
 }
