@@ -69,6 +69,7 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
         },
       });
     }
+    
     return climate;
   } catch (error) {
     ScrapeLogger.error('Scrape Korean Climate Error: %o', {
