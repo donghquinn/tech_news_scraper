@@ -5,6 +5,6 @@ import { handleFunctions } from 'libraries/handler.lib';
 import cron from 'node-cron';
 import { Logger } from 'utils/logger.util';
 
-cron.schedule("17 1 * * *",  () => {
+cron.schedule("20 1 * * *",  () => {
     handleFunctions().catch(err =>  Logger.error("Handler Error: %o", {err}));
   });   

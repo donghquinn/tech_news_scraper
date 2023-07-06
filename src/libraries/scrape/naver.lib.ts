@@ -31,7 +31,7 @@ export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => 
   
       NaverLogger.info('Found Naver News: %o', {response: response.items});
 
-      for (let i = 0; i <= response.items.length; i+=1) {
+      for (let i = 0; i <= response.items.length - 1; i+=1) {
         await prisma.naverNews.create({
           data: {
             keyWord: keyWordArray[j],

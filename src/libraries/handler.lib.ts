@@ -29,9 +29,9 @@ export const handleFunctions = async() => {
     
         for (let i = 0; i <= results.length - 1; i += 1) {
             if (results[i].status === "fulfilled") {
-                Logger.info("Successed: %o", {result: results[i]})
+                Logger.info("Successed: %o", {result: results[i].status});
             } else {
-                Logger.info("Error: %o", {error: results[i]})
+                Logger.info("Error: %o", {error: results[i].status});
             }
         }
     } catch (error) {

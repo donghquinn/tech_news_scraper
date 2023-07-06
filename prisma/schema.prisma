@@ -18,16 +18,6 @@ model Hackers {
   founded DateTime
 }
 
-model naverKin {
-  uuid     String   @id @default(uuid())
-  title    String
-  category String
-  content  String
-  image    String[]
-  link     String
-  founded  DateTime
-}
-
 model BbcTechNews {
   uuid    String   @id @default(uuid())
   rank    String

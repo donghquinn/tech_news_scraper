@@ -64,7 +64,7 @@ export const scrapeHackerNews = async (prisma: PrismaLibrary, today: moment.Mome
 
     HackerLogger.info('Got New Hacker News Rank.');
 
-    for (let i = 0; i < newsArray.length; i += 1) {
+    for (let i = 0; i < newsArray.length - 1; i += 1) {
       await prisma.hackers.create({
         data: {
           rank: newsArray[i].rank,
@@ -74,6 +74,8 @@ export const scrapeHackerNews = async (prisma: PrismaLibrary, today: moment.Mome
         },
       });
     }
+
+    HackerLogger.info("Inserted Hacker News Finished");
 
     return newsArray;
   } catch (error) {
