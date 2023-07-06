@@ -2600,6 +2600,7 @@ __metadata:
     eslint-config-prettier: ^8.8.0
     eslint-plugin-import: ^2.27.5
     json2csv: ^6.0.0-alpha.2
+    moment: ^2.29.4
     moment-timezone: ^0.5.43
     node-cron: ^3.0.2
     node-fetch: ^3.3.1
