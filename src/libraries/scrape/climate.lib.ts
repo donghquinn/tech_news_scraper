@@ -3,7 +3,7 @@ import { ClimateError } from 'errors/climate.error';
 import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import fetch from 'node-fetch';
 import { ClimateReturnData, Response } from 'types/climate.type';
-import { ScrapeLogger } from 'utils/logger.util';
+import { Logger, ScrapeLogger } from 'utils/logger.util';
 
 export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
@@ -16,8 +16,12 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
       method: 'GET',
     };
 
+    // eslint-disable-next-line max-len
+    const requestUrl = `${url}?returnType=json&serviceKey=${token}&pageNo=1&&stationName=종로구&dataTerm=DAILY&numOfRows=23`;
+
+    Logger.info("Request Url",requestUrl);
     const response = await fetch(
-      `${url}?returnType=json&serviceKey=${token}&pageNo=1&&stationName=종로구&dataTerm=DAILY&numOfRows=23`,
+      requestUrl,
       options,
     );
 
@@ -65,6 +69,7 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
           coGrade: climate[i].coGrade,
           khaiGrade: climate[i].khaiGrade,
           khaiStatus: climate[i].khaiStatus,
+          writer: "donghquinn",
           founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });

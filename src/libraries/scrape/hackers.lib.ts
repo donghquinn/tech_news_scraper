@@ -70,6 +70,7 @@ export const scrapeHackerNews = async (prisma: PrismaLibrary, today: moment.Mome
           rank: newsArray[i].rank,
           post: newsArray[i].post,
           link: newsArray[i].link,
+          writer: "donghquinn",
           founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });

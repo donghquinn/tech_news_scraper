@@ -40,6 +40,7 @@ export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => 
             originallink: response.items[i].originallink,
             url: response.items[i].link,
             postedTime: response.items[i].pubDate,
+            writer: "donghquinn",
             founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
           },
         });

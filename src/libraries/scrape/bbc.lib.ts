@@ -46,6 +46,7 @@ export const scrapeBbcTechNews = async (prisma: PrismaLibrary, today: moment.Mom
           rank: returnArray[i].rank,
           post: returnArray[i].post,
           link: returnArray[i].link,
+          writer: "donghquinn",
           founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });

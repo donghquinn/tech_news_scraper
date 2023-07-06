@@ -54,6 +54,7 @@ export const scrapeMelonChart = async (prisma: PrismaLibrary, today: moment.Mome
           rank: musicArray[i].rank,
           title: musicArray[i].title,
           artist: musicArray[i].artist,
+          writer: "donghquinn",
           founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });
