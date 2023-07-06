@@ -5,7 +5,7 @@ import { BbcError } from 'errors/bbc.error';
 import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import moment from 'moment-timezone';
 import { BbcNewsReturnArray } from 'types/bbc.type';
-import { ScrapeLogger } from 'utils/logger.util';
+import { BbcLogger } from 'utils/logger.util';
 
 export const scrapeBbcTechNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
@@ -38,7 +38,7 @@ export const scrapeBbcTechNews = async (prisma: PrismaLibrary, today: moment.Mom
       });
     }
 
-    ScrapeLogger.info('BBC Technology News Found');
+    BbcLogger.info('BBC Technology News Found');
 
     for (let i = 0; i < returnArray.length; i += 1) {
       await prisma.bbcTechNews.create({
@@ -53,7 +53,7 @@ export const scrapeBbcTechNews = async (prisma: PrismaLibrary, today: moment.Mom
     }
     return returnArray;
   } catch (error) {
-    ScrapeLogger.error('Scrape BBC Tech News Error: ', {
+    BbcLogger.error('Scrape BBC Tech News Error: ', {
       error: error instanceof Error ? error : new Error(JSON.stringify(error)),
     });
 

@@ -6,7 +6,7 @@ import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import fetch from 'node-fetch';
 import { NaverNewsResponse } from 'types/naver.type';
 import utf8 from 'utf8';
-import { ScrapeLogger } from 'utils/logger.util';
+import { NaverLogger } from 'utils/logger.util';
 
 export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
@@ -29,7 +29,7 @@ export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => 
   
       const response = (await (await fetch(url, options)).json()) as NaverNewsResponse;
   
-      ScrapeLogger.info('Found Naver News: %o', {response: response.items});
+      NaverLogger.info('Found Naver News: %o', {response: response.items});
 
       for (let i = 0; i <= response.items.length; i+=1) {
         await prisma.naverNews.create({
@@ -49,7 +49,7 @@ export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => 
 
     return keyWordArray;
   } catch (error) {
-    ScrapeLogger.error('Scrape Naver News Error: %o', {
+    NaverLogger.error('Scrape Naver News Error: %o', {
       error: error instanceof Error ? error : new Error(JSON.stringify(error)),
     });
 
@@ -77,7 +77,7 @@ export const naverKin = async () => {
       // .children("ul.basic1").children("li").children("dl").children("dt").children("a").children("b").toString()
       // const date = html(item).children("li").children("dl").children("dt").children("dd.txt_inline").toString()
 
-      ScrapeLogger.debug(title);
+      NaverLogger.debug(title);
     }
 
     // const response =

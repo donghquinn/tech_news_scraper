@@ -5,7 +5,7 @@ import { HackerError } from 'errors/hacker.error';
 import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import moment from 'moment-timezone';
 import { HackersNewsArrayType } from 'types/hackers.type';
-import { ScrapeLogger } from 'utils/logger.util';
+import { HackerLogger } from 'utils/logger.util';
 
 /**
  * Hackers News 1 ~ 30: "https://news.ycombinator.com/"
@@ -62,7 +62,7 @@ export const scrapeHackerNews = async (prisma: PrismaLibrary, today: moment.Mome
       newsArray.push({ rank: rank[i], post: posts[i].replace(/[\n\t\r]/g, ''), link: hrefArray[i] });
     }
 
-    ScrapeLogger.info('Got New Hacker News Rank.');
+    HackerLogger.info('Got New Hacker News Rank.');
 
     for (let i = 0; i < newsArray.length; i += 1) {
       await prisma.hackers.create({
@@ -78,7 +78,7 @@ export const scrapeHackerNews = async (prisma: PrismaLibrary, today: moment.Mome
 
     return newsArray;
   } catch (error) {
-    ScrapeLogger.error('Scrape Hacker Tech News Error:', {
+    HackerLogger.error('Scrape Hacker Tech News Error:', {
       error: error instanceof Error ? error : new Error(JSON.stringify(error)),
     });
 

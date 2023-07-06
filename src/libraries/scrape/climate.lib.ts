@@ -3,7 +3,7 @@ import { ClimateError } from 'errors/climate.error';
 import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import fetch from 'node-fetch';
 import { ClimateReturnData, Response } from 'types/climate.type';
-import { Logger, ScrapeLogger } from 'utils/logger.util';
+import { ClimateLogger } from 'utils/logger.util';
 
 export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
@@ -19,7 +19,8 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
     // eslint-disable-next-line max-len
     const requestUrl = `${url}?returnType=json&serviceKey=${token}&pageNo=1&&stationName=종로구&dataTerm=DAILY&numOfRows=23`;
 
-    Logger.info("Request Url",requestUrl);
+    ClimateLogger.info("Request Url: %o", {requestUrl});
+
     const response = await fetch(
       requestUrl,
       options,
@@ -51,7 +52,7 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
       }
     }
 
-    ScrapeLogger.info('Climate Data Inserted');
+    ClimateLogger.info('Climate Data Inserted');
 
     for (let i = 0; i < climate.length; i += 1) {
       await prisma.climate.create({
@@ -77,7 +78,7 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
     
     return climate;
   } catch (error) {
-    ScrapeLogger.error('Scrape Korean Climate Error: %o', {
+    ClimateLogger.error('Scrape Korean Climate Error: %o', {
       error: error instanceof Error ? error : new Error(JSON.stringify(error)),
     });
 
