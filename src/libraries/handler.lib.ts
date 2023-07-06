@@ -5,7 +5,6 @@ import { PrismaLibrary } from "./common/prisma.lib";
 import { scrapeBbcTechNews } from "./scrape/bbc.lib";
 import { getKoreanClimate } from "./scrape/climate.lib";
 import { scrapeHackerNews } from "./scrape/hackers.lib";
-import { scrapeMelonChart } from "./scrape/music.lib";
 import { naverNews } from "./scrape/naver.lib";
 
 const prisma = new PrismaLibrary();
@@ -24,7 +23,6 @@ export const handleFunctions = async() => {
         const results = await Promise.allSettled([
             scrapeHackerNews(prisma, today),
             scrapeBbcTechNews(prisma, today),
-            scrapeMelonChart(prisma, today),
             getKoreanClimate(prisma, today),
             naverNews(prisma, today)
             ]);

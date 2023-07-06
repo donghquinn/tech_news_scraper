@@ -20,7 +20,90 @@ class WinstonLogger {
 
   private scrapeLogger: Winston.Logger;
 
+  private climateLogger: Winston.Logger;
+
+  private hackerLogger: Winston.Logger;
+
+  private bbcLogger: Winston.Logger;
+
+  private naverLogger: Winston.Logger;
+
   private constructor() {
+    this.climateLogger = Winston.createLogger({
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      format: combine(splat(), json(),colorize(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
+      transports: [
+        new Winston.transports.Console(),
+        new WinstonDaily({
+          datePattern: 'YYYY-MM-DD',
+          dirname: dirSaveName,
+          filename: '%DATE%.climate.log',
+          maxFiles: 30,
+          zippedArchive: true,
+        }),
+      ],
+    });
+
+    this.bbcLogger = Winston.createLogger({
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      format: combine(splat(), json(),colorize(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
+      transports: [
+        new Winston.transports.Console(),
+        new WinstonDaily({
+          datePattern: 'YYYY-MM-DD',
+          dirname: dirSaveName,
+          filename: '%DATE%.bbc.log',
+          maxFiles: 30,
+          zippedArchive: true,
+        }),
+      ],
+    });
+
+    this.hackerLogger = Winston.createLogger({
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      format: combine(splat(), json(),colorize(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
+      transports: [
+        new Winston.transports.Console(),
+        new WinstonDaily({
+          datePattern: 'YYYY-MM-DD',
+          dirname: dirSaveName,
+          filename: '%DATE%.hacker.log',
+          maxFiles: 30,
+          zippedArchive: true,
+        }),
+      ],
+    });
+
+    this.climateLogger = Winston.createLogger({
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      format: combine(splat(), json(),colorize(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
+      transports: [
+        new Winston.transports.Console(),
+        new WinstonDaily({
+          datePattern: 'YYYY-MM-DD',
+          dirname: dirSaveName,
+          filename: '%DATE%.climate.log',
+          maxFiles: 30,
+          zippedArchive: true,
+        }),
+      ],
+    });
+
+    this.naverLogger = Winston.createLogger({
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      format: combine(splat(), json(),colorize(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
+      transports: [
+        new Winston.transports.Console(),
+        new WinstonDaily({
+          datePattern: 'YYYY-MM-DD',
+          dirname: dirSaveName,
+          filename: '%DATE%.naver.log',
+          maxFiles: 30,
+          zippedArchive: true,
+        }),
+      ],
+    });
+
     this.scrapeLogger = Winston.createLogger({
       level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
       format: combine(splat(), json(),colorize(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
@@ -69,8 +152,19 @@ class WinstonLogger {
     return {
       Logger: this.instance.logger,
       ScrapeLogger: this.instance.scrapeLogger,
+      HackerLogger: this.instance.hackerLogger,
+      ClimateLogger: this.instance.climateLogger,
+      NaverLogger: this.instance.naverLogger,
+      BbcLogger: this.instance.bbcLogger,
     };
   }
 }
 
-export const { Logger, ScrapeLogger } = WinstonLogger.getInstance();
+export const { 
+  Logger, 
+  ScrapeLogger,
+  HackerLogger, 
+  ClimateLogger,
+  NaverLogger, 
+  BbcLogger 
+} = WinstonLogger.getInstance();
