@@ -70,7 +70,6 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
           coGrade: climate[i].coGrade,
           khaiGrade: climate[i].khaiGrade,
           khaiStatus: climate[i].khaiStatus,
-          writer: "donghquinn",
           founded: new Date(today.format('YYYY-MM-DD HH:mm:ss')),
         },
       });

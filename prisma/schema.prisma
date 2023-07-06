@@ -15,7 +15,6 @@ model Hackers {
   rank    String
   post    String
   link    String
-  writer  String   @unique @default("dongquinn")
   founded DateTime
 }
 
@@ -26,7 +25,6 @@ model naverKin {
   content  String
   image    String[]
   link     String
-  writer   String   @unique @default("dongquinn")
   founded  DateTime
 }
 
@@ -35,7 +33,6 @@ model BbcTechNews {
   rank    String
   post    String
   link    String
-  writer  String   @unique @default("dongquinn")
   founded DateTime
 }
 
@@ -47,7 +44,6 @@ model NaverNews {
   originallink String
   url          String
   postedTime   String
-  writer       String   @unique @default("dongquinn")
   founded      DateTime
 }
 
@@ -79,6 +75,5 @@ model Climate {
   // 통합대기환경지수
   khaiGrade  String?
   khaiStatus String   @default("normal")
-  writer     String   @unique @default("dongquinn")
   founded    DateTime
 }
