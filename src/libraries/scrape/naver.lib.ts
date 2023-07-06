@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import axios from 'axios';
-import * as cheerio from 'cheerio';
 import { NaverError } from 'errors/naver.error';
 import { PrismaLibrary } from 'libraries/common/prisma.lib';
 import fetch from 'node-fetch';
@@ -31,7 +29,7 @@ export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => 
   
       NaverLogger.info('Found Naver News: %o', {response: response.items});
 
-      for (let i = 0; i <= response.items.length - 1; i+=1) {
+      for (let i = 0; i <= response.items.length; i+=1) {
         await prisma.naverNews.create({
           data: {
             keyWord: keyWordArray[j],
@@ -60,31 +58,3 @@ export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => 
   }
 };
 
-export const naverKin = async () => {
-  try {
-    const keyword = ['빅데이터', '머신러닝', '딥러닝'];
-
-    for (let i = 0; i <= keyword.length; i += 1) {
-      const url = `https://kin.naver.com/search/list.nhn?query=${i}`;
-
-      const response = await axios.get<string>(url);
-
-      const html = cheerio.load(response.data);
-
-      const title = html('div.section').children('ul.basic1').children('li').append('!').text().split('!');
-
-      // .children("ul.basic1").children("li").children("dl").children("dt").children("a").children("b").toString()
-      // const date = html(item).children("li").children("dl").children("dt").children("dd.txt_inline").toString()
-
-      NaverLogger.debug(title);
-    }
-
-    // const response =
-  } catch (error) {
-    throw new NaverError(
-      'Naver KIN',
-      'Scrape Naver Kin Error',
-      error instanceof Error ? error : new Error(JSON.stringify(error)),
-    );
-  }
-};
