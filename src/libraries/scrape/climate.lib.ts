@@ -19,8 +19,6 @@ export const getKoreanClimate = async (prisma: PrismaLibrary, today: moment.Mome
     // eslint-disable-next-line max-len
     const requestUrl = `${url}?returnType=json&serviceKey=${token}&pageNo=1&&stationName=종로구&dataTerm=DAILY&numOfRows=23`;
 
-    ClimateLogger.info("Request Url: %o", {requestUrl});
-
     const response = await fetch(
       requestUrl,
       options,
