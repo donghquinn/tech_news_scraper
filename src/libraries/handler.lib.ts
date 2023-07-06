@@ -12,7 +12,6 @@ const prisma = new PrismaLibrary();
 
 export const handleFunctions = async() => {
     try {
-        Logger.info("Scrape Start");
         const today = moment().tz('Asia/Seoul');
 
         const message = `Scrape Start: ${today.toLocaleString()}`
