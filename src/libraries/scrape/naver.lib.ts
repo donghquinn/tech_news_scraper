@@ -33,8 +33,8 @@ export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => 
         await prisma.naverNews.create({
           data: {
             keyWord: keyWordArray[j],
-            title: response.items[i].title.replace(/<[^>]*>?/g, ''),
-            description: response.items[i].description.replace(/<[^>]*>?/g, ''),
+            title: response.items[i].title.replace(/<[^>]*>?/g, '').replace("&apos;", ""),
+            description: response.items[i].description.replace(/<[^>]*>?/g, '').replace("&apos;", ""),
             originallink: response.items[i].originallink,
             url: response.items[i].link,
             postedTime: response.items[i].pubDate,
