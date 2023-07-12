@@ -8,7 +8,7 @@ import { NaverLogger } from 'utils/logger.util';
 
 export const naverNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
   try {
-    const keyWordArray = ["AI", "인공지능", "IT", "스포츠"];
+    const keyWordArray = ["AI", "인공지능", "IT", "스포츠", "ai", "ml"];
 
     for (let j = 0; j <= keyWordArray.length; j +=1) {
       const queryName = utf8.encode(keyWordArray[j]);
