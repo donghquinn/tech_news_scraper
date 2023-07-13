@@ -1,6 +1,5 @@
 import axios from "axios";
 import * as cheerio from 'cheerio';
-import { ht } from "date-fns/locale";
 import { MachineLearningError } from "errors/machine.error";
 import { PrismaLibrary } from "libraries/common/prisma.lib";
 import { MachineLogger } from "utils/logger.util";
