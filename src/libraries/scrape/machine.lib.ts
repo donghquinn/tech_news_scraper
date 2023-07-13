@@ -1,9 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import * as cheerio from 'cheerio';
-import { hr } from "date-fns/locale";
-import { MachineLearningError } from "errors/machine.error"
-import { MachineLearningArrayType } from "types/machine.type";
+import { MachineLearningError } from "errors/machine.error";
+import { PrismaLibrary } from "libraries/common/prisma.lib";
 import { MachineLogger } from "utils/logger.util";
 
 export const getOriginalLink = async(href: string) => {
@@ -23,20 +21,6 @@ export const getOriginalLink = async(href: string) => {
         .children("a.btn.btn-primary")
         .prop("href")!;
 
-        // const description = html("main.container-xl.px-2.px-md-3")
-        // .children("div.page-body")
-        // .children("div.row")
-        // .children("div.col-12")
-        // .children("div.card")
-        // .children("div.card-body")
-        // .text().replace("")
-        // .replace(/<[^>]*>?/g, '')
-        // .children("div.card-subtitle.mt-2")
-        ;
-//  
-	
-        // MachineLogger.info("Card Description: %o", {description});
-
         return link;
     } catch (error) {
         throw new MachineLearningError(
@@ -46,19 +30,29 @@ export const getOriginalLink = async(href: string) => {
         )
     }
 }
-export const getMachineLearningNews = async () => {
+
+export const getTopSourceNews = async(html: cheerio.CheerioAPI) => {
     try {
-        const url = "https://allainews.com/?ref=mlnews";
+        html("main.container-xl.px-2.px-md-3")
+        .children("div.page-body")
+        .children("div.row.d-none.d-md-flex")
+        .children("div.col-md-12 col-lg-4 mt-3 mt-lg-0")
+    } catch (error) {
+        throw new MachineLearningError(
+            "Get Top Source Machine Learning news",
+            "Failed to Get Tope Source Machine Learning news",
+            error instanceof Error ? error : new Error(JSON.stringify(error)),
+        )
+    }
 
-        const response = await axios.get<string>(url);
+}
 
-        const html = cheerio.load(response.data);
-
-        // MachineLogger.info("Response: %o",{response: response.data});
-        // const newsArray:Array<MachineLearningArrayType> = [];
+export const getLatestNews = async(html: cheerio.CheerioAPI) => {
+    try {
         const hrefArray: Array<string> = [];
         const originalArray: Array<string> = [];
         const titleArray: Array<string> = [];
+
         html("main.container-xl.px-2.px-md-3")
         .children("div.page-body")
         .children("div.row.d-none.d-md-flex")
@@ -70,29 +64,60 @@ export const getMachineLearningNews = async () => {
             const title = html(item)
             .children('div.col')
             .children("a.d-block.text-dark")
-            .text().split('\n').map((line) => line.trim()).filter((l) => l !== "");
-            // .append("!")
-            // .text()
-            // .split("!");
+            .text()
+            .split('\n')
+            .map((line) => line.trim())
+            .filter((l) => l !== "");
 
-            // title.filter((t) => {
-            //     const text = t.split('"')[1].replace(/<[^>]*>?/g, '')
-    
-            //         titleArray.push(text);
-            // })
             titleArray.push(...title);
 
             const href = html(item).children("div.col").children("a.d-block.text-dark").prop("href")!;
             hrefArray.push(`https://allainews.com/${href}`);
-        })
+        });
+
+        MachineLogger.info("Founded New Machine Learning News");
         
         for (let i = 0; i<=hrefArray.length - 1; i+=1) {
             const link = await getOriginalLink(hrefArray[i]);
             originalArray.push(link);
         }
 
-        MachineLogger.info("title Arrays: %o", {a: titleArray});
-        MachineLogger.info("Href Array: %o", {hrefArray});
+        return {
+            originalArray,
+            titleArray
+        }
+    } catch (error) {
+        throw new MachineLearningError(
+            "Machine Learning Latest News",
+            "Failed to Get Machine Learning Latest News",
+            error instanceof Error ? error : new Error(JSON.stringify(error)),
+        )
+    }
+}
+
+export const getMachineLearningNews = async (prisma: PrismaLibrary, today: moment.Moment) => {
+    try {
+        const url = "https://allainews.com/?ref=mlnews";
+
+        const response = await axios.get<string>(url);
+
+        const html = cheerio.load(response.data);
+
+        const {latestLink, latestTitle} = await getLatestNews(html);
+        // MachineLogger.info("Response: %o",{response: response.data});
+        // const newsArray:Array<MachineLearningArrayType> = [];
+        
+
+
+            // await prisma.machineNews.create({
+            //     data: {
+            //         title: titleArray[i],
+            //         link: originalArray[i],
+            //         founded: new Date(today.format('YYYY-MM-DD HH:mm:ss'))
+            //     }
+            // })
+            MachineLogger.info("Insert Finished");
+        
     } catch (error) {
         throw new MachineLearningError(
             "Machin Learning News",
@@ -101,7 +126,3 @@ export const getMachineLearningNews = async () => {
         )
     }
 }
-
-
-
-await getMachineLearningNews();

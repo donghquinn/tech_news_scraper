@@ -38,10 +38,11 @@ model NaverNews {
 }
 
 model MachineNews {
-  uuid    String   @id @default(uuid())
-  title   String
-  link    String
-  founded DateTime
+  uuid     String   @id @default(uuid())
+  category String
+  title    String
+  link     String
+  founded  DateTime
 }
 
 model Climate {
