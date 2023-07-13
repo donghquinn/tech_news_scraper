@@ -37,6 +37,13 @@ model NaverNews {
   founded      DateTime
 }
 
+model MachineNews {
+  uuid    String   @id @default(uuid())
+  title   String
+  link    String
+  founded DateTime
+}
+
 model Climate {
   uuid       String   @id @default(uuid())
   dataTime   String

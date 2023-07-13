@@ -28,6 +28,8 @@ class WinstonLogger {
 
   private naverLogger: Winston.Logger;
 
+  private machineLogger: Winston.Logger;
+
   private constructor() {
     this.climateLogger = Winston.createLogger({
       level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
@@ -38,6 +40,21 @@ class WinstonLogger {
           datePattern: 'YYYY-MM-DD',
           dirname: dirSaveName,
           filename: '%DATE%.climate.log',
+          maxFiles: 30,
+          zippedArchive: true,
+        }),
+      ],
+    });
+
+    this.machineLogger = Winston.createLogger({
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      format: combine(splat(), json(),colorize(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
+      transports: [
+        new Winston.transports.Console(),
+        new WinstonDaily({
+          datePattern: 'YYYY-MM-DD',
+          dirname: dirSaveName,
+          filename: '%DATE%.machine.log',
           maxFiles: 30,
           zippedArchive: true,
         }),
@@ -156,6 +173,7 @@ class WinstonLogger {
       ClimateLogger: this.instance.climateLogger,
       NaverLogger: this.instance.naverLogger,
       BbcLogger: this.instance.bbcLogger,
+      MachineLogger: this.instance.machineLogger,
     };
   }
 }
@@ -166,5 +184,6 @@ export const {
   HackerLogger, 
   ClimateLogger,
   NaverLogger, 
-  BbcLogger 
+  BbcLogger,
+  MachineLogger,
 } = WinstonLogger.getInstance();

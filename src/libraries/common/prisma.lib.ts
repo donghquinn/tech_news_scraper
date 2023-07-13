@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { Logger } from 'utils/logger.util';
 
-export class PrismaLibrary extends PrismaClient {
+export class PrismaLibrary extends PrismaClient   {
   // private prisma: PrismaClient;
 
   // constructor() {
