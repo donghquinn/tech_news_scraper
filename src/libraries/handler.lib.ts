@@ -6,6 +6,7 @@ import { scrapeBbcTechNews } from "./scrape/bbc.lib";
 import { getKoreanClimate } from "./scrape/climate.lib";
 import { scrapeHackerNews } from "./scrape/hackers.lib";
 import { naverNews } from "./scrape/naver.lib";
+import { getMachineLearningNews } from "./scrape/machine.lib";
 
 const prisma = new PrismaLibrary();
 
@@ -24,7 +25,8 @@ export const handleFunctions = async() => {
             scrapeHackerNews(prisma, today),
             scrapeBbcTechNews(prisma, today),
             getKoreanClimate(prisma, today),
-            naverNews(prisma, today)
+            naverNews(prisma, today),
+            getMachineLearningNews(prisma, today),
             ]);
     
         for (let i = 0; i <= results.length - 1; i += 1) {

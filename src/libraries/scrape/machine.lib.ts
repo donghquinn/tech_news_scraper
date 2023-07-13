@@ -155,7 +155,6 @@ export const getMachineLearningNews = async (prisma: PrismaLibrary, today: momen
 
         MachineLogger.info("Insert Latest News Finished");
 
-
         for (let j = 0; j <= topLink.length - 1;  j += 1) {
             await prisma.machineNews.create({
                 data: {
